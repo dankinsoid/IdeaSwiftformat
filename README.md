@@ -9,7 +9,6 @@ This plugin provides integration with [`SwiftFormat`](https://github.com/nickloc
 
 ## Usage
 Commands are available in <kbd>Tools</kbd> > <kbd>SwiftFormat</kbd> and <kbd>Refactor</kbd> > <kbd>SwiftFormat</kbd> menus. It's recommended to add keymaps for these commands.
-While editing a manifest projects `swiftformat generate` calls automatically on saving, as well as `swiftformat fetch` while editing the `Dependencies.swift`.
 
 ## Available commands
 - Format - `swiftformat .`.
