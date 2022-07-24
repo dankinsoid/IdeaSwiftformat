@@ -1,0 +1,58 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>com.github.dankinsoid.ideaswiftformat</id>
+    <name>IdeaSwiftformat</name>
+    <vendor>dankinsoid</vendor>
+
+    <idea-version since-build="211"/>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <notificationGroup id="SwiftformatNotifications"
+                           displayType="BALLOON"/>
+    </extensions>
+
+    <applicationListeners>
+        <listener class="com.github.dankinsoid.ideaswiftformat.listeners.SwiftformatProjectListener"
+                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
+    </applicationListeners>
+
+    <actions>
+        <group id="com.github.dankinsoid.swiftformat.file.group"
+               icon="/icons/swiftformat.svg"
+               class="com.github.dankinsoid.ideaswiftformat.actions.SwiftformatGroup"
+               text="Swiftformat">
+            <add-to-group group-id="RefactoringMenu" anchor="first"/>
+            <action id="com.github.dankinsoid.ideaswiftformat.actions.fetch"
+                    class="com.github.dankinsoid.ideaswiftformat.actions.GenerateFile"
+                    text="Format"
+                    description="Format file or directory">
+            </action>
+            <action id="com.github.dankinsoid.ideaswiftformat.actions.edit"
+                    class="com.github.dankinsoid.ideaswiftformat.actions.GenerateFileInProjectStyle"
+                    text="Format As Suggested"
+                    description="Format file or directory with suggested options">
+            </action>
+        </group>
+        <group id="com.github.dankinsoid.ideaswiftformat.actions.group"
+               text="Swiftformat"
+               popup="true"
+               icon="/icons/swiftformat.svg">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <action id="com.github.dankinsoid.ideaswiftformat.actions.generate"
+                    class="com.github.dankinsoid.ideaswiftformat.actions.Generate"
+                    text="Format Project"
+                    description="Format project">
+            </action>
+            <action id="com.github.dankinsoid.ideaswiftformat.actions.fetchUpdate"
+                    class="com.github.dankinsoid.ideaswiftformat.actions.GenerateInProjectStyle"
+                    text="Format Project As Suggested"
+                    description="Format project with suggested options">
+            </action>
+            <action id="com.github.dankinsoid.ideaswiftformat.actions.autoformat"
+                    class="com.github.dankinsoid.ideaswiftformat.actions.AutoFormatAction"
+                    text="Auto Format"
+                    description="Format project when save or close">
+            </action>
+        </group>
+    </actions>
+</idea-plugin>
