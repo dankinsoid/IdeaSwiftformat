@@ -20,7 +20,7 @@
                icon="/icons/swiftformat.svg"
                class="com.github.dankinsoid.ideaswiftformat.actions.SwiftformatGroup"
                text="SwiftFormat">
-            <add-to-group group-id="RefactoringMenu" anchor="first"/>
+            <add-to-group group-id="RefactoringMenu" anchor="last"/>
             <action id="com.github.dankinsoid.ideaswiftformat.actions.fetch"
                     class="com.github.dankinsoid.ideaswiftformat.actions.GenerateFile"
                     text="Format"
