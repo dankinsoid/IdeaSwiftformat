@@ -35,10 +35,10 @@ internal class SwiftformatProjectListener : ProjectManagerListener {
     }
 
     override fun projectClosed(project: Project) {
-        update(project)
-        if (project.basePath?.contains(".idea") != true) {
+        if (!swiftformat(project).state.isAutoUpdate) {
             return
         }
+        update(project)
     }
 
     private fun updateWithThrottle(project: Project) {
