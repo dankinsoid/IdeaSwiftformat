@@ -6,6 +6,8 @@
 
     <idea-version since-build="211"/>
 
+    <depends>com.intellij.modules.platform</depends>
+
     <extensions defaultExtensionNs="com.intellij">
         <notificationGroup id="SwiftformatNotifications" displayType="BALLOON"/>
     </extensions>
@@ -17,18 +19,20 @@
 
     <actions>
         <group id="com.github.dankinsoid.swiftformat.file.group"
-               icon="/icons/swiftformat.svg"
                class="com.github.dankinsoid.ideaswiftformat.actions.SwiftformatGroup"
+               popup="false"
                text="SwiftFormat">
             <add-to-group group-id="RefactoringMenu" anchor="last"/>
             <action id="com.github.dankinsoid.ideaswiftformat.actions.fetch"
                     class="com.github.dankinsoid.ideaswiftformat.actions.GenerateFile"
                     text="Format"
+                    icon="/icons/swiftformat.svg"
                     description="Format file or directory">
             </action>
             <action id="com.github.dankinsoid.ideaswiftformat.actions.edit"
                     class="com.github.dankinsoid.ideaswiftformat.actions.GenerateFileInProjectStyle"
                     text="Format As Suggested"
+                    icon="/icons/swiftformat.svg"
                     description="Format file or directory with suggested options">
             </action>
         </group>

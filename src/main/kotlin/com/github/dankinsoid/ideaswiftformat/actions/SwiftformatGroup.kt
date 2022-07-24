@@ -11,7 +11,7 @@ class SwiftformatGroup: DefaultActionGroup(), DumbAware {
     }
 
     override fun update(event: AnActionEvent) {
-        event.presentation.isPopupGroup = true
+        event.presentation.isPopupGroup = false
         val file = event.getData(PlatformCoreDataKeys.VIRTUAL_FILE)
         if (file?.isDirectory != true && file?.extension != "swift") {
             event.presentation.isVisible = false

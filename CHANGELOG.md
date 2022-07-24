@@ -4,4 +4,4 @@
 
 ## [Unreleased]
 ### Added
-- Reload project after generate command.
+- Base `SwiftFormat` commands.

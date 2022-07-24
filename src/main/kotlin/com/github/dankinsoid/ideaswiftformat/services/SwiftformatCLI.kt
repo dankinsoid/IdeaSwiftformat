@@ -15,8 +15,10 @@ import com.intellij.openapi.progress.Task
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.guessProjectDir
 import com.intellij.openapi.util.Key
+import com.intellij.openapi.vfs.VfsUtil
 import java.io.File
 import java.nio.charset.Charset
+import java.nio.file.Path
 
 @State(name = "swiftformatCache")
 class SwiftformatCLI(
@@ -30,22 +32,23 @@ class SwiftformatCLI(
 
     fun generate(path: String?, onSuccess: () -> Unit = {}) {
         execute(path ?: defaultPath, "Formatting files", listOf()) {
+            refresh(path)
             onSuccess()
         }
     }
 
     fun generateInProjectStyle(path: String?, onSuccess: () -> Unit = {}) {
-        val arguments = mutableListOf("--inferoptions")
-        execute(path ?: defaultPath, "Analysing files", arguments) { str ->
-            var string = str
-            if (string.startsWith("--")) {
-                string = string.drop(2)
-            }
-            val newArguments = string.split(" --").map { "--$it" }
-            execute(path ?: defaultPath, "Formatting files", newArguments) {
+        execute(path ?: defaultPath, "Analysing files", listOf("--inferoptions")) { str ->
+            execute(path ?: defaultPath, "Formatting files", str.split(" ")) {
+                refresh(path)
                 onSuccess()
             }
         }
+    }
+
+    private fun refresh(path: String?) {
+        val file = path?.let { VfsUtil.findFile(Path.of(it), false) } ?: project.guessProjectDir()
+        file?.refresh(false, true)
     }
 
     override fun getState(): State {
@@ -70,7 +73,7 @@ class SwiftformatCLI(
                     progressIndicator.fraction = 1.0
                 })
                 if (output.exitCode == 0) {
-                    onSuccess(output.stdout)
+                    onSuccess(output.stdoutLines.joinToString("\n"))
                 }
             }
         })
@@ -90,14 +93,15 @@ class SwiftformatCLI(
             })
         }.runProcess()
 
-        if (!silent && output.exitCode != 0) {
+        if (!silent && output.stderrLines.isNotEmpty()) {
             Notification(
                 "SwiftformatNotifications",
                 "Swiftformat ${commandLine.parametersList.list.joinToString(" ")}",
-                output.stderrLines.joinToString("\n"),
-                NotificationType.ERROR
+                output.stderrLines.joinToString("\n\n"),
+                if (output.exitCode == 0) { NotificationType.INFORMATION } else { NotificationType.ERROR }
             ).notify(project)
         }
+
         return output
     }
 

@@ -9,11 +9,7 @@ import com.intellij.openapi.project.DumbAware
 class GenerateFile: AnAction(), DumbAware {
 
     override fun actionPerformed(event: AnActionEvent) {
-        val file = event.getData(PlatformCoreDataKeys.VIRTUAL_FILE)
-        if (file?.isDirectory != true) {
-            event.presentation.isVisible = false
-            return
-        }
+        val file = event.getData(PlatformCoreDataKeys.VIRTUAL_FILE) ?: return
         event.project?.let {
             SwiftformatCLI(it).generate(file.path)
         }
