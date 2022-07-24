@@ -8,7 +8,7 @@
 This plugin provides integration with [`SwiftFormat`](https://github.com/nicklockwood/SwiftFormat).
 
 ## Usage
-Commands are available in <kbd>Tools</kbd> > <kbd>Swiftformat</kbd> menu. It's recommended to add keymaps for these commands.
+Commands are available in <kbd>Tools</kbd> > <kbd>SwiftFormat</kbd> menu. It's recommended to add keymaps for these commands.
 While editing a manifest projects `swiftformat generate` calls automatically on saving, as well as `swiftformat fetch` while editing the `Dependencies.swift`.
 
 ## Available commands
