@@ -2,7 +2,7 @@ package com.github.dankinsoid.ideaswiftformat.actions
 
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.DefaultActionGroup
-import com.intellij.openapi.actionSystem.PlatformCoreDataKeys
+import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.project.DumbAware
 
 class SwiftformatGroup: DefaultActionGroup(), DumbAware {
@@ -11,8 +11,7 @@ class SwiftformatGroup: DefaultActionGroup(), DumbAware {
     }
 
     override fun update(event: AnActionEvent) {
-        event.presentation.isPopupGroup = false
-        val file = event.getData(PlatformCoreDataKeys.VIRTUAL_FILE)
+        val file = event.getData(CommonDataKeys.VIRTUAL_FILE)
         if (file?.isDirectory != true && file?.extension != "swift") {
             event.presentation.isVisible = false
         }
